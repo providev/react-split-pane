@@ -68,9 +68,9 @@ class SplitPane extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mouseup', this.onMouseUp);
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('touchmove', this.onTouchMove);
+    this.props.win.document.addEventListener('mouseup', this.onMouseUp);
+    this.props.win.document.addEventListener('mousemove', this.onMouseMove);
+    this.props.win.document.addEventListener('touchmove', this.onTouchMove);
     this.setState(SplitPane.getSizeUpdate(this.props, this.state));
   }
 
@@ -79,9 +79,9 @@ class SplitPane extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mouseup', this.onMouseUp);
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('touchmove', this.onTouchMove);
+    this.props.win.document.removeEventListener('mouseup', this.onMouseUp);
+    this.props.win.document.removeEventListener('mousemove', this.onMouseMove);
+    this.props.win.document.removeEventListener('touchmove', this.onTouchMove);
   }
 
   onMouseDown(event) {
@@ -92,9 +92,9 @@ class SplitPane extends React.Component {
   }
 
   onTouchStart(event) {
-    const { allowResize, onDragStarted, split } = this.props;
+    const { allowResize, onDragStarted, split, win } = this.props;
     if (allowResize) {
-      unFocus(document, window);
+      unFocus(win.document, win);
       const position =
         split === 'vertical'
           ? event.touches[0].clientX
@@ -118,11 +118,19 @@ class SplitPane extends React.Component {
   }
 
   onTouchMove(event) {
-    const { allowResize, maxSize, minSize, onChange, split, step } = this.props;
+    const {
+      allowResize,
+      maxSize,
+      minSize,
+      onChange,
+      split,
+      step,
+      win,
+    } = this.props;
     const { active, position } = this.state;
 
     if (allowResize && active) {
-      unFocus(document, window);
+      unFocus(win.document, win);
       const isPrimaryFirst = this.props.primary === 'first';
       const ref = isPrimaryFirst ? this.pane1 : this.pane2;
       const ref2 = isPrimaryFirst ? this.pane2 : this.pane1;
@@ -149,8 +157,8 @@ class SplitPane extends React.Component {
           }
           let sizeDelta = isPrimaryFirst ? positionDelta : -positionDelta;
 
-          const pane1Order = parseInt(window.getComputedStyle(node).order);
-          const pane2Order = parseInt(window.getComputedStyle(node2).order);
+          const pane1Order = parseInt(win.getComputedStyle(node).order);
+          const pane2Order = parseInt(win.getComputedStyle(node2).order);
           if (pane1Order > pane2Order) {
             sizeDelta = -sizeDelta;
           }
@@ -375,6 +383,7 @@ SplitPane.propTypes = {
   pane2Style: stylePropType,
   resizerClassName: PropTypes.string,
   step: PropTypes.number,
+  win: PropTypes.object,
 };
 
 SplitPane.defaultProps = {
@@ -385,6 +394,7 @@ SplitPane.defaultProps = {
   paneClassName: '',
   pane1ClassName: '',
   pane2ClassName: '',
+  win: window,
 };
 
 polyfill(SplitPane);

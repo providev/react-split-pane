@@ -1,6 +1,6 @@
 {
-  "name": "react-split-pane",
-  "description": "React split-pane component",
+  "name": "react-split-pane-window",
+  "description": "React split-pane component, forked from the original tomkp/react-split-pane/",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "source": "src/index.js",
@@ -9,22 +9,24 @@
     "dist",
     "index.d.ts"
   ],
-  "version": "0.1.87",
+  "version": "0.1.89",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tomkp/react-split-pane"
+    "url": "https://github.com/providev/react-split-pane"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tomkp/react-split-pane"
+    "url": "https://github.com/providev/react-split-pane"
   },
-  "homepage": "https://github.com/tomkp/react-split-pane",
-  "author": "tomkp <tom@tomkp.com>",
+  "homepage": "https://github.com/providev/react-split-pane",
+  "author": "providev <https://github.com/providev>",
   "keywords": [
     "react",
     "react-component",
     "split-pane",
     "react-split-pane",
+    "react-split-pane-window",
+    "portal",
     "es6"
   ],
   "scripts": {
